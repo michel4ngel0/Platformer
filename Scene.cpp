@@ -38,6 +38,21 @@ void Scene::remove_object(sf::Sprite* object) {
 	object_count_ -= 1;
 }
 
+void Scene::update_object(sf::Sprite* object) {
+	auto iterator = objects_.find(object);
+
+	if (iterator == objects_.end())
+		return;
+
+	aabb bounding_box;
+	bounding_box.x_ = object->getPosition().x;
+	bounding_box.y_ = object->getPosition().y;
+	bounding_box.x_size_ = object->getTextureRect().width;
+	bounding_box.y_size_ = object->getTextureRect().height;
+
+	collision_tree_.update(iterator->second, bounding_box);
+}
+
 size_t Scene::size() const {
 	return object_count_;
 }
@@ -62,9 +77,9 @@ void Scene::draw_view(sf::RenderTarget& target, aabb& view) {
 	for (; iterator.is_valid(); ++iterator) {
 		target.draw(*iterator);
 		/* Debug */
-		std::cerr << "drawing " <<
-		             iterator->getPosition().x << ", " <<
-		             iterator->getPosition().y << std::endl;
+		//std::cerr << "drawing " <<
+		//             iterator->getPosition().x << ", " <<
+		//             iterator->getPosition().y << std::endl;
 	}
 }
 

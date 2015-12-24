@@ -10,7 +10,10 @@ class Level {
 private:
 	Scene scene_;
 	Gui gui_;
-	std::map<const char*, sf::Texture*> textures_;
+	std::map<std::string, sf::Texture*> textures_;
+
+	std::set<sf::Sprite*> mobs_;
+	sf::Sprite* player_;
 
 public:
 	Level(const char*);

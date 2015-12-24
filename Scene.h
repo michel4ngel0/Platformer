@@ -20,6 +20,7 @@ public:
 
 	void insert_object(sf::Sprite*);
 	void remove_object(sf::Sprite*);
+	void update_object(sf::Sprite*);
 
 	size_t size() const;
 

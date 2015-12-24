@@ -72,7 +72,7 @@ public:
 
 	pointer insert(T*, aabb&);
 	bool remove(pointer&);		//	invalidate the pointer and iterators
-	pointer update(pointer&);	//	pointing to the same element
+	pointer update(pointer&, aabb&);	//	pointing to the same element
 	iterator find_range(const aabb&) const;
 	iterator end() const;
 
@@ -307,17 +307,16 @@ bool aabbTree<T>::remove(pointer& pt) {
 }
 
 template<typename T>
-typename aabbTree<T>::pointer aabbTree<T>::update(pointer& pt) {
+typename aabbTree<T>::pointer aabbTree<T>::update(pointer& pt, aabb& bounding_box) {
 	if (!pt.is_valid())
 		return pt;
 
 	T* data = &(*pt);
 	aabb& box = pt.node_->rectangle_;
-	aabb bounding_box = pt->get_bounding_box();
 	
 	if (!bounding_box.is_contained(box)) {
 		if (remove(pt))
-			pt = insert(data);
+			pt = insert(data, bounding_box);
 	}
 
 	return pt;
