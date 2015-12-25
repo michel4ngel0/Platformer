@@ -6,42 +6,54 @@
 #include "Scene.h"
 #include "Gui.h"
 #include "Level.h"
+#include "Creature.h"
+#include "Camera.h"
 
-Level::Level(const char* level_name) {
+Level::Level(const char* level_name, float window_width, float window_height) :
+	window_width_(window_width), window_height_(window_height) {
+
+	camera_ = new CameraStationary(0, 0, window_width_, window_height_);
+
 	std::fstream input_file(path_levels + level_name);
 	std::cerr << "Loading level " << level_name << std::endl;
 
-	player_ = nullptr;
-
-	std::string word;
+	std::string type, texture, creature_type;
 	float x, y;
 	do {
-		input_file >> word;
+		input_file >> type;
 
-		if (word == "texture") {
-			input_file >> word;
+		if (type == "texture") {
+			input_file >> texture;
 			sf::Texture* new_texture = new sf::Texture;
-			new_texture->loadFromFile(path_textures + word);
-			textures_.insert(std::make_pair(word, new_texture));
+			new_texture->loadFromFile(path_textures + texture);
+			textures_.insert(std::make_pair(texture, new_texture));
 		}
-		else if (word == "object") {
-			input_file >> x >> y >> word;
-			sf::Sprite* new_sprite = new sf::Sprite;
-			new_sprite->setTexture(*(textures_[word.c_str()]));
-			new_sprite->setPosition(x, y);
-			scene_.insert_object(new_sprite);
-			input_file >> word;
-			if (word == "player") {
-				if (player_ != nullptr)
-					std::cerr << "Error: more than one controllable character" << std::endl;
-				player_ = new_sprite;
+		else if (type == "creature") {
+			input_file >> x >> y >> texture >> creature_type;
+			Creature* new_creature = nullptr;
+			if (creature_type == "player") {
+				new_creature = new Player;
+				delete camera_;
+				camera_ = new CameraFollower(new_creature, window_width_, window_height_);
 			}
-			else if (word == "mob") {
-				mobs_.insert(new_sprite);
+			else if (creature_type == "dummy") {
+				new_creature = new Dummy;
 			}
-			else if (word == "block") {
 
-			}
+			if (new_creature == nullptr)
+				continue;
+
+			new_creature->setTexture(*(textures_[texture]));
+			new_creature->setPosition(x, y);
+			scene_.insert_object(new_creature);
+			creatures_.insert(new_creature);
+		}
+		else if (type == "tile") {
+			input_file >> x >> y >> texture;
+			sf::Sprite* new_tile = new sf::Sprite;
+			new_tile->setTexture(*(textures_[texture]));
+			new_tile->setPosition(x, y);
+			scene_.insert_object(new_tile);
 		}
 
 	} while (!input_file.eof());
@@ -52,33 +64,17 @@ Level::Level(const char* level_name) {
 Level::~Level() {
 	for (auto& texture : textures_)
 		delete texture.second;
+
+	delete camera_;
 }
 
 void Level::step(double dt) {
-	auto& objects = scene_.get_objects();
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
-		player_->move(0, -200 * (float)dt);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
-		player_->move(0, 200 * (float)dt);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
-		player_->move(-200 * (float)dt, 0);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
-		player_->move(200 * (float)dt, 0);
-
-	scene_.update_object(player_);
+	for (auto& creature : creatures_)
+		creature->step(&scene_, dt);
 }
 
 void Level::draw(sf::RenderTarget& target) {
-	/* TODO */
-	aabb view;
-	if (player_ != nullptr)
-		view = { player_->getPosition().x - (800 - player_->getTextureRect().width) / 2,
-		         player_->getPosition().y - (600 - player_->getTextureRect().height) / 2,
-				 800,
-	             600 };
-	else
-		view = { 0, 0, 800, 600 };
+	aabb view = camera_->get_view();
 
 	scene_.draw_view(target, view);
 	gui_.draw(target);

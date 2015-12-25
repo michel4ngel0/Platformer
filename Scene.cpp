@@ -57,7 +57,7 @@ size_t Scene::size() const {
 	return object_count_;
 }
 
-Scene::treeIterator Scene::get_close_objects(sf::Sprite* object, const aabb& bounds) {
+Scene::treeIterator Scene::get_close_objects(sf::Sprite* object, const aabb& bounds) const {
 	auto iterator = objects_.find(object);
 
 	if (iterator == objects_.end())

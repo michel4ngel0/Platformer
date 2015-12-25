@@ -33,7 +33,8 @@ int Game::run() {
 	sf::RenderWindow window(sf::VideoMode(window_width, window_height, 32),
 	                        "Platformer");
 
-	Level current_level("test.lvl");
+	Level current_level("test.lvl", (float)window_width, (float)window_height);
+	state_ = game_state::playing;
 
 	while (window.isOpen()) {
 		time = std::chrono::high_resolution_clock::now();
@@ -69,9 +70,7 @@ int Game::run() {
 		current_level.step(dt.count());
 
 		window.clear(sf::Color(35, 35, 35));
-
 		current_level.draw(window);
-
 		window.display();
 	}
 

@@ -24,7 +24,7 @@ public:
 
 	size_t size() const;
 
-	treeIterator get_close_objects(sf::Sprite*, const aabb&);
+	treeIterator get_close_objects(sf::Sprite*, const aabb&) const;
 	void draw_view(sf::RenderTarget&, aabb&);
 	std::map<sf::Sprite*, treePointer>& get_objects();
 };

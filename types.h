@@ -7,4 +7,6 @@ const std::string path_textures = "resources/textures/";
 
 enum class game_state {
 	not_started,
+	playing,
+	paused,
 };

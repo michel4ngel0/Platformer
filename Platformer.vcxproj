@@ -125,6 +125,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="aabb-tree\aabb_tree.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Creature.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Gui.cpp" />
     <ClCompile Include="Level.cpp" />
@@ -133,6 +135,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="aabb-tree\aabb_tree.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Creature.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Gui.h" />
     <ClInclude Include="Level.h" />

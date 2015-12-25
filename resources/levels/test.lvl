@@ -1,6 +1,6 @@
 texture enemy.png
 texture player.png
-object 400 300 enemy.png mob
-object 234 54 player.png player
-object -100 -100 enemy.png mob
-object -40 -40 enemy.png mob
+creature 400 300 enemy.png dummy
+creature -100 -100 enemy.png dummy
+creature -40 -40 enemy.png dummy
+creature 234 54 player.png player
