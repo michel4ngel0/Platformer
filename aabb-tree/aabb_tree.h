@@ -78,7 +78,7 @@ public:
 
 private:
 	node* root_;
-	double box_margin_ = 0.1;
+	double box_margin_ = 0.0;
 };
 
 
@@ -209,7 +209,7 @@ aabbTree<T>::~aabbTree() {
 
 template<typename T>
 typename aabbTree<T>::pointer aabbTree<T>::insert(T* data, aabb& box) {
-	box.scale(1 + box_margin_); 
+	//box.scale(1 + box_margin_); 
 	
 	if (root_ == nullptr) {
 		root_ = new node(box, nullptr, data);

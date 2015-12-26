@@ -8,6 +8,7 @@ private:
 	static Game* singleton;
 	static const int window_width = 800;
 	static const int window_height = 600;
+	static const int minimum_fps = 10;
 
 	game_state state_;
 

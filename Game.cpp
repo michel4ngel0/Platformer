@@ -38,12 +38,15 @@ int Game::run() {
 
 	while (window.isOpen()) {
 		time = std::chrono::high_resolution_clock::now();
-		std::chrono::duration<double> dt =
+		std::chrono::duration<double> delta_t =
 			std::chrono::duration_cast<std::chrono::duration<double>>(time - previous_time);
 		previous_time = time;
+		double dt = delta_t.count();
+		if (dt > 1.0 / minimum_fps)
+			dt = 1.0 / minimum_fps;
 
 		frame_counter += 1;
-		time_counter += dt.count();
+		time_counter += dt;
 		if (time_counter >= 1.0) {
 			std::cerr << "FPS: " << frame_counter << std::endl;
 			frame_counter = 0;
@@ -67,7 +70,7 @@ int Game::run() {
 			}
 		}
 
-		current_level.step(dt.count());
+		current_level.step(dt);
 
 		window.clear(sf::Color(35, 35, 35));
 		current_level.draw(window);
