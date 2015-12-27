@@ -10,7 +10,7 @@ Scene::~Scene() {
 		delete pointers.first;
 }
 
-void Scene::insert_object(sf::Sprite* object) {
+void Scene::insert_object(Entity* object) {
 	if (objects_.find(object) != objects_.end())
 		return;
 
@@ -26,7 +26,7 @@ void Scene::insert_object(sf::Sprite* object) {
 	object_count_ += 1;
 }
 
-void Scene::remove_object(sf::Sprite* object) {
+void Scene::remove_object(Entity* object) {
 	auto iterator = objects_.find(object);
 
 	if (iterator == objects_.end())
@@ -38,7 +38,7 @@ void Scene::remove_object(sf::Sprite* object) {
 	object_count_ -= 1;
 }
 
-void Scene::update_object(sf::Sprite* object) {
+void Scene::update_object(Entity* object) {
 	auto iterator = objects_.find(object);
 
 	if (iterator == objects_.end())
@@ -78,6 +78,6 @@ void Scene::draw_view(sf::RenderTarget& target, aabb& view) {
 	}
 }
 
-std::map<sf::Sprite*, Scene::treePointer>& Scene::get_objects() {
+std::map<Entity*, Scene::treePointer>& Scene::get_objects() {
 	return objects_;
 }

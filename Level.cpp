@@ -50,7 +50,7 @@ Level::Level(const char* level_name, float window_width, float window_height) :
 		}
 		else if (type == "tile") {
 			input_file >> x >> y >> texture;
-			sf::Sprite* new_tile = new sf::Sprite;
+			Entity* new_tile = new Entity;
 			new_tile->setTexture(*(textures_[texture]));
 			new_tile->setPosition(x, y);
 			scene_.insert_object(new_tile);

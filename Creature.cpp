@@ -57,7 +57,7 @@ void Player::step(Scene* scene, double dt) {
 	iterator = scene->get_close_objects(collision_box);
 	for (; iterator.is_valid(); ++iterator) {
 		if (&(*iterator) != this) {
-			//
+			slide_out(&(*iterator));
 		}
 	}
 
