@@ -1,6 +1,21 @@
 texture enemy.png
 texture player.png
-creature 400 300 enemy.png dummy
+texture wall.png
+creature -100 -400 player.png player
+creature 300 300 enemy.png dummy
 creature -100 -100 enemy.png dummy
 creature -40 -40 enemy.png dummy
-creature 234 54 player.png player
+tile 0 500 wall.png
+tile 100 500 wall.png
+tile 200 500 wall.png
+tile 300 500 wall.png
+tile 400 500 wall.png
+tile 500 500 wall.png
+tile 600 500 wall.png
+tile 700 500 wall.png
+tile 0 600 wall.png
+tile 100 600 wall.png
+tile 200 600 wall.png
+tile 300 600 wall.png
+tile 200 700 wall.png
+tile 200 800 wall.png

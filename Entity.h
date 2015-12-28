@@ -2,9 +2,10 @@
 
 #include <SFML/Graphics.hpp>
 #include "aabb-tree\aabb_tree.h"
+#include "types.h"
 
 class Entity : public sf::Sprite {
 public:
 	aabb get_bounding_box();
-	void slide_out(Entity*);
+	direction slide_out(Entity*);
 };

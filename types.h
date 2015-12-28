@@ -10,3 +10,11 @@ enum class game_state {
 	playing,
 	paused,
 };
+
+enum class direction {
+	up,
+	down,
+	left,
+	right,
+	none,
+};
