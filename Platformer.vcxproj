@@ -18,6 +18,36 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\aabb-tree\aabb_tree.cpp" />
+    <ClCompile Include="source\Camera.cpp" />
+    <ClCompile Include="source\Clock.cpp" />
+    <ClCompile Include="source\entities\Creature.cpp" />
+    <ClCompile Include="source\entities\Dummy.cpp" />
+    <ClCompile Include="source\entities\Floaty.cpp" />
+    <ClCompile Include="source\entities\Player.cpp" />
+    <ClCompile Include="source\Entity.cpp" />
+    <ClCompile Include="source\Game.cpp" />
+    <ClCompile Include="source\Gui.cpp" />
+    <ClCompile Include="source\Level.cpp" />
+    <ClCompile Include="source\Main.cpp" />
+    <ClCompile Include="source\Scene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\aabb-tree\aabb_tree.h" />
+    <ClInclude Include="source\Camera.h" />
+    <ClInclude Include="source\Clock.h" />
+    <ClInclude Include="source\entities\Creature.h" />
+    <ClInclude Include="source\entities\Dummy.h" />
+    <ClInclude Include="source\entities\Floaty.h" />
+    <ClInclude Include="source\entities\Player.h" />
+    <ClInclude Include="source\Entity.h" />
+    <ClInclude Include="source\Game.h" />
+    <ClInclude Include="source\Gui.h" />
+    <ClInclude Include="source\Level.h" />
+    <ClInclude Include="source\Scene.h" />
+    <ClInclude Include="source\types.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{82B00E59-E03C-4E14-9EF8-D36192482403}</ProjectGuid>
     <RootNamespace>Platformer</RootNamespace>
@@ -68,7 +98,14 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <SourcePath>$(VC_SourcePath)source;$(SourcePath)</SourcePath>
+    <IncludePath>$(VC_IncludePath)source;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <SourcePath>$(VC_SourcePath)source;$(SourcePath)</SourcePath>
+    <IncludePath>$(VC_IncludePath)source;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -123,30 +160,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="aabb-tree\aabb_tree.cpp" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Clock.cpp" />
-    <ClCompile Include="Creature.cpp" />
-    <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Gui.cpp" />
-    <ClCompile Include="Level.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Scene.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="aabb-tree\aabb_tree.h" />
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="Clock.h" />
-    <ClInclude Include="Creature.h" />
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="Gui.h" />
-    <ClInclude Include="Level.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="types.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

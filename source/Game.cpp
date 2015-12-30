@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Level.h"
+#include "Clock.h"
 #include <cassert>
 #include <chrono>
 #include <iostream>
@@ -30,10 +31,21 @@ int Game::run() {
 	double time_counter = 0.0;
 	unsigned long frame_counter = 0;
 
-	sf::RenderWindow window(sf::VideoMode(window_width, window_height, 32),
-	                        "Platformer");
+	//	Prepare the window and the canvas
+	sf::RenderTexture canvas;
+	canvas.create(canvas_width, canvas_height, 32);
+	sf::VideoMode current_video_mode = sf::VideoMode::getDesktopMode();
+	scale_ = (int)fmin(current_video_mode.width / (float)canvas_width,
+		               current_video_mode.height / (float)canvas_height);
+	//scale_ = 1;
+	sf::RenderWindow window(sf::VideoMode(scale_ * canvas_width, scale_ * canvas_height), 
+		                    "Platrofmer");
+	sf::Sprite window_content(canvas.getTexture());
+	window_content.setPosition(0.f, 0.f);
+	window_content.setScale((float)scale_, (float)scale_);
+	//window.clear(sf::Color::Black);
 
-	Level current_level("test.lvl", (float)window_width, (float)window_height);
+	Level current_level("test.lvl", (float)canvas_width, (float)canvas_height);
 	state_ = game_state::playing;
 
 	while (window.isOpen()) {
@@ -70,10 +82,15 @@ int Game::run() {
 			}
 		}
 
+		Clock::get_clock()->step();
+
 		current_level.step(dt);
 
-		window.clear(sf::Color(35, 35, 35));
-		current_level.draw(window);
+		canvas.clear(sf::Color(35, 35, 35));
+		current_level.draw(canvas);
+		canvas.display();	//	very important XD (no, really)
+
+		window.draw(window_content);
 		window.display();
 	}
 

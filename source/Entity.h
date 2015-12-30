@@ -8,4 +8,5 @@ class Entity : public sf::Sprite {
 public:
 	aabb get_bounding_box();
 	direction slide_out(Entity*);
+	virtual void alert(int);
 };

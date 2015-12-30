@@ -57,3 +57,7 @@ direction Entity::slide_out(Entity* other) {
 	//	Shouldn't happen, really
 	return direction::none;
 }
+
+void Entity::alert(int) {
+	
+}

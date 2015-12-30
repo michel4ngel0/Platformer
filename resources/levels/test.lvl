@@ -1,21 +1,21 @@
-texture enemy.png
+texture dummy.png
 texture player.png
 texture wall.png
-creature -100 -400 player.png player
-creature 300 300 enemy.png dummy
-creature -100 -100 enemy.png dummy
-creature -40 -40 enemy.png dummy
-tile 0 500 wall.png
-tile 100 500 wall.png
-tile 200 500 wall.png
-tile 300 500 wall.png
-tile 400 500 wall.png
-tile 500 500 wall.png
-tile 600 500 wall.png
-tile 700 500 wall.png
-tile 0 600 wall.png
-tile 100 600 wall.png
-tile 200 600 wall.png
-tile 300 600 wall.png
-tile 200 700 wall.png
-tile 200 800 wall.png
+texture floaty.png
+creature 0 0 player.png player
+creature 48 112 dummy.png dummy
+creature 100 100 floaty.png floaty
+creature 100 120 floaty.png floaty
+creature 100 140 floaty.png floaty
+tile 0 128 wall.png
+tile 16 128 wall.png
+tile 32 128 wall.png
+tile 48 128 wall.png
+tile 64 128 wall.png
+tile 80 128 wall.png
+tile 96 128 wall.png
+tile 112 128 wall.png
+tile 128 128 wall.png
+tile 144 128 wall.png
+tile 160 128 wall.png
+tile 176 128 wall.png

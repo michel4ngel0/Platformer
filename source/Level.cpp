@@ -6,7 +6,10 @@
 #include "Scene.h"
 #include "Gui.h"
 #include "Level.h"
-#include "Creature.h"
+#include "entities\Creature.h"
+#include "entities\Player.h"
+#include "entities\Dummy.h"
+#include "entities\Floaty.h"
 #include "Camera.h"
 
 Level::Level(const char* level_name, float window_width, float window_height) :
@@ -39,9 +42,17 @@ Level::Level(const char* level_name, float window_width, float window_height) :
 			else if (creature_type == "dummy") {
 				new_creature = new Dummy;
 			}
+			else if (creature_type == "floaty") {
+				new_creature = new Floaty;
+			}
 
 			if (new_creature == nullptr)
 				continue;
+
+			if (textures_.find(texture) == textures_.end()) {
+				std::cerr << "Texture not found: " << texture << std::endl;
+				continue;
+			}
 
 			new_creature->setTexture(*(textures_[texture]));
 			new_creature->setPosition(x, y);
