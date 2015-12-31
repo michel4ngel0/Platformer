@@ -34,16 +34,22 @@ int Game::run() {
 	//	Prepare the window and the canvas
 	sf::RenderTexture canvas;
 	canvas.create(canvas_width, canvas_height, 32);
-	sf::VideoMode current_video_mode = sf::VideoMode::getDesktopMode();
+	auto available_video_modes = sf::VideoMode::getFullscreenModes();
+	if (available_video_modes.size() < 1) {
+		std::cerr << "Couldn't start in fullscreen mode" << std::endl;
+		return -1;
+	}
+	sf::VideoMode current_video_mode = available_video_modes[0];
 	scale_ = (int)fmin(current_video_mode.width / (float)canvas_width,
 		               current_video_mode.height / (float)canvas_height);
-	//scale_ = 1;
-	sf::RenderWindow window(sf::VideoMode(scale_ * canvas_width, scale_ * canvas_height), 
-		                    "Platrofmer");
+	sf::RenderWindow window(current_video_mode, 
+		                    "Platrofmer",
+		                    sf::Style::Fullscreen);
 	sf::Sprite window_content(canvas.getTexture());
-	window_content.setPosition(0.f, 0.f);
+	window_content.setPosition((current_video_mode.width - (scale_ * canvas_width)) / 2,
+	                           (current_video_mode.height - (scale_ * canvas_height)) / 2);
 	window_content.setScale((float)scale_, (float)scale_);
-	//window.clear(sf::Color::Black);
+	window.clear(sf::Color::Black);
 
 	Level current_level("test.lvl", (float)canvas_width, (float)canvas_height);
 	state_ = game_state::playing;
@@ -71,6 +77,10 @@ int Game::run() {
 				window.close();
 			}
 			else if (event.type == sf::Event::KeyPressed) {
+				if (event.key.code == sf::Keyboard::Escape) {
+					window.close();
+					break;
+				}
 				//
 				//
 				//
